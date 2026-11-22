@@ -1,0 +1,25 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:-local}
+        BUILD_TIME: ${BUILD_TIME:-local}
+    image: cloud-cicd-app:local
+    container_name: cloud-cicd-app
+    ports:
+      - "3000:3000"
+    environment:
+      APP_ENV: ${APP_ENV:-local-docker}
+      PORT: "3000"
+    volumes:
+      - app-data:/data
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  app-data:

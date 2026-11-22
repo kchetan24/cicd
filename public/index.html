@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cloud CI/CD Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+  <header class="bg-slate-900 text-white">
+    <div class="max-w-5xl mx-auto px-4 py-5 flex items-center justify-between">
+      <h1 class="text-xl font-semibold">Cloud CI/CD Dashboard</h1>
+      <span id="status-badge" class="px-3 py-1 rounded-full text-sm bg-slate-600">checking…</span>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-6 grid gap-6 md:grid-cols-2">
+    <section class="bg-white rounded-xl shadow p-5">
+      <h2 class="font-semibold mb-3">Server health</h2>
+      <dl class="grid grid-cols-2 gap-y-2 text-sm">
+        <dt class="text-slate-500">Uptime</dt><dd id="uptime" class="font-mono">–</dd>
+        <dt class="text-slate-500">Started at</dt><dd id="started" class="font-mono">–</dd>
+        <dt class="text-slate-500">Node version</dt><dd id="node" class="font-mono">–</dd>
+        <dt class="text-slate-500">Last check</dt><dd id="last-check" class="font-mono">–</dd>
+      </dl>
+    </section>
+
+    <section class="bg-white rounded-xl shadow p-5">
+      <h2 class="font-semibold mb-3">Build info</h2>
+      <dl class="grid grid-cols-2 gap-y-2 text-sm">
+        <dt class="text-slate-500">Version</dt><dd id="version" class="font-mono">–</dd>
+        <dt class="text-slate-500">Git commit</dt><dd id="commit" class="font-mono break-all">–</dd>
+        <dt class="text-slate-500">Build time</dt><dd id="build-time" class="font-mono break-all">–</dd>
+        <dt class="text-slate-500">Environment</dt><dd id="environment" class="font-mono">–</dd>
+      </dl>
+      <h3 class="font-medium mt-4 mb-1 text-sm">Environment variables (whitelisted)</h3>
+      <pre id="env" class="bg-slate-50 rounded p-3 text-xs overflow-x-auto">–</pre>
+    </section>
+
+    <section class="bg-white rounded-xl shadow p-5">
+      <h2 class="font-semibold mb-3">Persistent counter</h2>
+      <p class="text-5xl font-bold text-center my-4" id="counter">0</p>
+      <div class="flex gap-2 justify-center">
+        <button id="inc" class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Increment</button>
+        <button id="reset" class="px-4 py-2 rounded bg-slate-200 hover:bg-slate-300">Reset</button>
+      </div>
+      <p class="text-xs text-slate-500 mt-3 text-center">Survives restarts when the /data volume is mounted.</p>
+    </section>
+
+    <section class="bg-white rounded-xl shadow p-5">
+      <h2 class="font-semibold mb-3">Message board</h2>
+      <form id="msg-form" class="space-y-2">
+        <input id="author" maxlength="40" placeholder="Your name (optional)" class="w-full border rounded px-3 py-2 text-sm" />
+        <textarea id="text" maxlength="280" required placeholder="Write a message…" class="w-full border rounded px-3 py-2 text-sm" rows="2"></textarea>
+        <button class="px-4 py-2 rounded bg-emerald-600 text-white hover:bg-emerald-700 text-sm">Post</button>
+        <span id="form-error" class="text-red-600 text-sm ml-2"></span>
+      </form>
+      <ul id="messages" class="mt-4 space-y-2 max-h-72 overflow-y-auto"></ul>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
